@@ -258,12 +258,12 @@ func TestListTasks(t *testing.T) {
 		createRandomTask(t)
 	}
 
-	//args := ListTasksParams{
-	//	Limit:  5,
-	//	Offset: 5,
-	//}
+	args := ListTasksParams{
+		Limit:  5,
+		Offset: 5,
+	}
 
-	tasks, err := testStore.ListTasks(context.Background())
+	tasks, err := testStore.ListTasks(context.Background(), args)
 	require.NoError(t, err)
 	require.Len(t, tasks, 5)
 	for _, task := range tasks {

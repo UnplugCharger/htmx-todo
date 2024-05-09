@@ -24,7 +24,7 @@ type Querier interface {
 	GetUser(ctx context.Context, username string) (Users, error)
 	ListGroups(ctx context.Context, arg ListGroupsParams) ([]Groups, error)
 	ListTaskSubtasks(ctx context.Context, taskID *int32) ([]Subtasks, error)
-	ListTasks(ctx context.Context) ([]Tasks, error)
+	ListTasks(ctx context.Context, arg ListTasksParams) ([]Tasks, error)
 	ListUsers(ctx context.Context, arg ListUsersParams) ([]Users, error)
 	RemoveUserFromGroup(ctx context.Context, arg RemoveUserFromGroupParams) error
 	UpdateGroup(ctx context.Context, arg UpdateGroupParams) (Groups, error)
