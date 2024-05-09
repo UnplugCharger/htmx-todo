@@ -1,0 +1,56 @@
+package templates
+
+
+templ header(title string) {
+	<head>
+		<title>{ title }</title>
+		<meta charset="UTF-8"/>
+		<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+		<script src="https://cdn.tailwindcss.com"></script>
+		<script src="https://unpkg.com/htmx.org@1.9.12" integrity="sha384-ujb1lZYygJmzgSwoxRggbCHcjc0rB2XoQrxeTUQyRjrOnlCoYta87iKBWq3EsdM2" crossorigin="anonymous"></script>
+	</head>
+}
+
+templ footer() {
+	<footer class="bg-primary-600 p-4"></footer>
+}
+
+templ nav() {
+	<nav class="bg-primary-600 p-4">
+		<div class="container flex justify-between">
+			<ol class="flex space-x-4">
+				<li>
+					<a class="text-gray-200" href="/">Home</a>
+				</li>
+				<li>
+					<a class="text-gray-200" href="/about">About</a>
+				</li>
+			</ol>
+			<ol class="flex space-x-4">
+
+					<li>
+						<button class="text-gray-200" hx-post="/logout">Logout</button>
+					</li>
+
+					<li>
+						<a class="text-gray-200" href="/register">Register</a>
+					</li>
+					<li>
+						<a class="text-gray-200" href="/login">Login</a>
+					</li>
+			</ol>
+		</div>
+	</nav>
+}
+
+templ Layout(contents templ.Component, title string) {
+@header(title)
+	<body class="bg-slate-800 ">
+		@nav()
+		<main class="flex-1 container ">
+			@contents
+		</main>
+		@footer()
+	</body>
+
+}
