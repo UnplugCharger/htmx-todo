@@ -1,0 +1,44 @@
+package templates
+
+templ RegisterPage() {
+	<div class="max-w-lg mx-auto text-black">
+        <h1 class="text-center my-12 text-5xl font-bold font-alata uppercase">
+            Register account
+        </h1>
+        <form hx-post="/register" hx-trigger="submit" hx-target-401="#register-error" class="space-y-4">
+            <div id="register-error" class="text-red-500"></div>
+            <div>
+                <label for="email" class="block">Your email</label>
+                <input type="email" name="email" id="email" placeholder="name@company.com" required="" class="block w-full px-4 py-2 rounded-md border border-gray-300 focus:outline-none focus:border-blue-400"/>
+            </div>
+            <div>
+                <label for="password" class="block">Password</label>
+                <input type="password" name="password" id="password" placeholder="••••••••" required="" class="block w-full px-4 py-2 rounded-md border border-gray-300 focus:outline-none focus:border-blue-400"/>
+            </div>
+            <div>
+                <label for="username" class="block">Username</label>
+                <input type="text" name="username" id="username" placeholder="username" required="" class="block w-full px-4 py-2 rounded-md border border-gray-300 focus:outline-none focus:border-blue-400"/>
+            </div>
+            <button type="submit" class="block w-full bg-blue-500 text-white py-2 rounded-md hover:bg-blue-600 focus:outline-none focus:bg-blue-600">
+                Register
+            </button>
+            <p class="text-center">
+                Already have an account?
+                <a href="/login" class="text-blue-500 hover:underline">Login</a>
+            </p>
+        </form>
+    </div>
+}
+
+templ RegisterSuccess() {
+	<h1>Registration successful</h1>
+	<p>Go to <a href="login">login</a></p>
+}
+
+
+templ RegisterError() {
+	<div>
+		<h1>Registration failed</h1>
+		<p>There was an error registering your account</p>
+	</div>
+}
