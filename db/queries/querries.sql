@@ -52,7 +52,7 @@ INSERT INTO tasks (title, description, due_date, status, group_id, user_id) VALU
 SELECT * FROM tasks WHERE id = $1 LIMIT 1;
 
 -- name: ListTasks :many
-SELECT * FROM tasks;
+SELECT * FROM tasks LIMIT $1 OFFSET $2;
 
 -- name: UpdateTask :one
 UPDATE tasks

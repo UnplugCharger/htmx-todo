@@ -4,6 +4,7 @@ import (
 	db "github.com/UnplugCharger/htmx-todo/db/sqlc"
 	"github.com/UnplugCharger/htmx-todo/frontend/templates"
 	"net/http"
+	"strconv"
 )
 
 type GetListTodoHandler struct {
@@ -21,24 +22,28 @@ func NewGetListTodoHandler(store db.Store) *GetListTodoHandler {
 
 // ServerHTTP handles the get list todo request
 func (h *GetListTodoHandler) ServeHTTP(w http.ResponseWriter, r *http.Request) {
-	//limitStr := r.FormValue("limit")
-	//offsetStr := r.FormValue("offset")
-	//
-	////// Convert limit and offset from string to int32
-	////limit, err := strconv.ParseInt(limitStr, 10, 32)
-	////if err != nil {
-	////	w.WriteHeader(http.StatusBadRequest)
-	////	return
-	////
-	////}
-	////offset, err := strconv.ParseInt(offsetStr, 10, 32)
-	////if err != nil {
-	////	w.WriteHeader(http.StatusBadRequest)
-	////	return
-	////
-	////}
+	limitStr := r.FormValue("limit")
+	offsetStr := r.FormValue("offset")
 
-	tasks, err := h.store.ListTasks(r.Context())
+	// Convert limit and offset from string to int32
+	limit, err := strconv.ParseInt(limitStr, 10, 32)
+	if err != nil {
+		w.WriteHeader(http.StatusBadRequest)
+		return
+
+	}
+	offset, err := strconv.ParseInt(offsetStr, 10, 32)
+	if err != nil {
+		w.WriteHeader(http.StatusBadRequest)
+		return
+
+	}
+	args := db.ListTasksParams{
+		Limit:  int32(limit),
+		Offset: int32(offset),
+	}
+
+	tasks, err := h.store.ListTasks(r.Context(), args)
 	if err != nil {
 		w.WriteHeader(http.StatusInternalServerError)
 		return

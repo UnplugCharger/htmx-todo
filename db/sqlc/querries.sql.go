@@ -291,11 +291,16 @@ func (q *Queries) ListTaskSubtasks(ctx context.Context, taskID *int32) ([]Subtas
 }
 
 const listTasks = `-- name: ListTasks :many
-SELECT id, title, description, due_date, status, group_id, user_id FROM tasks
+SELECT id, title, description, due_date, status, group_id, user_id FROM tasks LIMIT $1 OFFSET $2
 `
 
-func (q *Queries) ListTasks(ctx context.Context) ([]Tasks, error) {
-	rows, err := q.db.Query(ctx, listTasks)
+type ListTasksParams struct {
+	Limit  int32 `json:"limit"`
+	Offset int32 `json:"offset"`
+}
+
+func (q *Queries) ListTasks(ctx context.Context, arg ListTasksParams) ([]Tasks, error) {
+	rows, err := q.db.Query(ctx, listTasks, arg.Limit, arg.Offset)
 	if err != nil {
 		return nil, err
 	}
